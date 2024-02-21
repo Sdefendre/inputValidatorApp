@@ -5,52 +5,58 @@ import java.util.regex.Pattern;
 public class ValidatorString extends ValidatorNumeric {
     private String choiceOne;
     private String choiceTwo;
+    private Scanner scanner; // For reuse
 
-    // Default constructor
     public ValidatorString() {
-        super();
+        super("", 0.0, 0.0); // Call super constructor with default values
+        scanner = new Scanner(System.in);
     }
 
-    // Specific constructor taking a user prompt param
     public ValidatorString(String prompt) {
-        super(prompt);
+        super(prompt, 0.0, 0.0); // Call super constructor with prompt
+        scanner = new Scanner(System.in);
     }
 
-    // Specific constructor taking a user prompt and two choice params
     public ValidatorString(String prompt, String choiceOne, String choiceTwo) {
-        super(prompt);
+        super(prompt, 0.0, 0.0); // Call super constructor with prompt 
         this.choiceOne = choiceOne;
         this.choiceTwo = choiceTwo;
+        scanner = new Scanner(System.in);
     }
 
-    // Method that shows user prompt and returns a non-empty string from the user
-    public String getRequiredString() {
-        Scanner sc = new Scanner(System.in);
+    public String getRequiredString(String emptyErrorMessage, String invalidFormatMessage) {
         String input;
         do {
             System.out.println(getPrompt());
-            input = sc.nextLine();
+            input = scanner.nextLine(); 
             if (input.trim().isEmpty()) {
-                System.out.println("Error! This entry is required. Try again.");
-            } else if (!isValidPattern(input, "Your Regex Pattern Here")) { // Example use case
-                System.out.println("Error! Invalid format. Try again.");
+                System.out.println(emptyErrorMessage);
+            } else if (!isValidPattern(input, "Your Regex Pattern Here")) { 
+                System.out.println(invalidFormatMessage);
             }
         } while (input.trim().isEmpty() || !isValidPattern(input, "Your Regex Pattern Here"));
         return input;
     }
 
-    // Method that shows user prompt and returns one of the two pre-defined choices
-    public String getChoiceString() {
-        Scanner sc = new Scanner(System.in);
+    public String getChoiceString(String invalidChoiceMessage) {
         String input;
         do {
             System.out.println(getPrompt());
-            input = sc.nextLine();
+            input = scanner.nextLine(); 
             if (!input.equalsIgnoreCase(choiceOne) && !input.equalsIgnoreCase(choiceTwo)) {
-                System.out.println("Error! Entry must be '" + choiceOne + "' or '" + choiceTwo + "'. Try again.");
+                System.out.println(invalidChoiceMessage);
             }
         } while (!input.equalsIgnoreCase(choiceOne) && !input.equalsIgnoreCase(choiceTwo));
         return input;
+    }
+
+    private String getPrompt() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the prompt: ");
+        String prompt = scanner.nextLine();
+        // close the scanner 
+        scanner.close();
+        return prompt;
     }
 
     // New method to validate a string against a specific regex pattern
