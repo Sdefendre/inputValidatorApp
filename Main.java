@@ -37,19 +37,20 @@ public class Main {
         double doubleValue = doubleValidator.getNumberWithinRange(scanner);
         System.out.println("You entered: " + doubleValue);
     }
-
-  // run the required string test
+// run the required string test
 private static void runRequiredStringTest(Scanner scanner) {
     System.out.println("Name Test");
-    ValidatorString requiredStringValidator = new ValidatorString("Enter your name: ");
-    String name = requiredStringValidator.getRequiredString(scanner, "Name is required.", "Invalid name format.", "[A-Za-z ]+");
+    ValidatorString nameValidator = new ValidatorString("Enter your name: ");
+    String name = nameValidator.getRequiredString(scanner, "Name is required.", "Invalid name format.", "[A-Za-z ]+");
     System.out.println("You entered: " + name);
 
-    System.out.println("Email Test");
+    System.out.println("\nEmail Test");
     ValidatorString emailValidator = new ValidatorString("Enter your email address: ");
     String email = emailValidator.getRequiredString(scanner, "Email is required.", "Invalid email format.", "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$");
     System.out.println("You entered: " + email);
 }
+
+
 
 
     // run the choice string test
