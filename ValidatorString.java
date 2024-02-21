@@ -24,21 +24,21 @@ public class ValidatorString extends ValidatorNumeric {
         scanner = new Scanner(System.in);
     }
 
-    public String getRequiredString(String emptyErrorMessage, String invalidFormatMessage) {
+    public String getRequiredString(Scanner scanner, String emptyErrorMessage, String invalidFormatMessage, String regexPattern) {
         String input;
         do {
             System.out.println(getPrompt());
             input = scanner.nextLine(); 
             if (input.trim().isEmpty()) {
                 System.out.println(emptyErrorMessage);
-            } else if (!isValidPattern(input, "Your Regex Pattern Here")) { 
+            } else if (!isValidPattern(input, regexPattern)) { 
                 System.out.println(invalidFormatMessage);
             }
-        } while (input.trim().isEmpty() || !isValidPattern(input, "Your Regex Pattern Here"));
+        } while (input.trim().isEmpty() || !isValidPattern(input, regexPattern));
         return input;
     }
 
-    public String getChoiceString(String invalidChoiceMessage) {
+    public String getChoiceString(Scanner scanner, String invalidChoiceMessage) {
         String input;
         do {
             System.out.println(getPrompt());
@@ -51,12 +51,8 @@ public class ValidatorString extends ValidatorNumeric {
     }
 
     private String getPrompt() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter the prompt: ");
-        String prompt = scanner.nextLine();
-        // close the scanner 
-        scanner.close();
-        return prompt;
+        return scanner.nextLine();
     }
 
     // New method to validate a string against a specific regex pattern
