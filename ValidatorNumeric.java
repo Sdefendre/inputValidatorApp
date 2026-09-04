@@ -2,14 +2,18 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 public class ValidatorNumeric {
-    private String prompt;
-    private double min;
-    private double max;
+    private final String prompt;
+    private final double min;
+    private final double max;
 
     public ValidatorNumeric(String prompt, double min, double max) {
         this.prompt = prompt;
         this.min = min;
         this.max = max;
+    }
+
+    protected String getPrompt() {
+        return prompt;
     }
 
     public double getNumberWithinRange(Scanner scanner) {
@@ -18,6 +22,7 @@ public class ValidatorNumeric {
             System.out.print(prompt);
             try {
                 input = scanner.nextDouble();
+                scanner.nextLine();
                 if (input < min || input > max) {
                     System.out.println("Error! Please enter a number between " + min + " and " + max + ".");
                 }
@@ -36,6 +41,7 @@ public class ValidatorNumeric {
             System.out.print(prompt);
             try {
                 input = scanner.nextInt();
+                scanner.nextLine();
                 if (input < min || input > max) {
                     System.out.println("Error! Please enter an integer between " + (int) min + " and " + (int) max + ".");
                 }
