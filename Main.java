@@ -17,16 +17,8 @@ public class Main {
     private static void runIntegerTest(Scanner scanner) {
         System.out.println("Int Test");
         ValidatorNumeric intValidator = new ValidatorNumeric("Enter an integer between -100 and 100: ", -100, 100);
-        int intValue;
-    
-        do {
-            intValue = intValidator.getIntWithinRange(scanner);
-            if (intValue != Integer.MIN_VALUE) {
-                System.out.println("You entered: " + intValue);
-            } else {
-                System.out.println("Invalid input. Please try again.");
-            }
-        } while (intValue == Integer.MIN_VALUE);
+        int intValue = intValidator.getIntWithinRange(scanner);
+        System.out.println("You entered: " + intValue);
     }
     
 
